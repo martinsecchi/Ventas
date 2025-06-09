@@ -6,69 +6,9 @@
     <title>Fiat Toro 2.0 350 Multijet Volcano 4x4 AT 2022 - Venta Profesional</title>
     <meta name="description" content="Descubre la Fiat Toro 2.0 350 Multijet Volcano 4x4 AT 2022 en venta. Detalles, precio, kilometraje y enlace a la publicación completa en MercadoLibre.">
     <link rel="icon" href="https://placehold.co/16x16/000000/FFFFFF?text=🚗" type="image/x-icon">
-    <!-- Image Section con Carrusel -->
-<section class="bg-white p-4 rounded-lg shadow-md flex items-center justify-center min-h-[200px] relative">
-    <div id="carousel" class="relative w-full overflow-hidden">
-        <img id="carousel-image" src="" alt="Imagen del vehículo" class="w-full h-auto object-contain rounded">
-        <!-- Botones -->
-        <button id="prev" class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 px-3 py-1 rounded-full shadow">
-            ⬅️
-        </button>
-        <button id="next" class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 px-3 py-1 rounded-full shadow">
-            ➡️
-        </button>
-    </div>
-</section>
-
-<!-- Script del Carrusel usando la API de MercadoLibre -->
-<script>
-    const PRODUCT_ID = "MLA1380217153"; // Cambiá este ID por el de la publicación que quieras
-
-    let imagenes = [];
-    let indiceActual = 0;
-
-    const imagen = document.getElementById('carousel-image');
-    const btnPrev = document.getElementById('prev');
-    const btnNext = document.getElementById('next');
-
-    function mostrarImagen() {
-        if (imagenes.length > 0) {
-            imagen.src = imagenes[indiceActual];
-        } else {
-            imagen.alt = "No se pudieron cargar imágenes";
-        }
-    }
-
-    btnPrev.addEventListener('click', () => {
-        indiceActual = (indiceActual - 1 + imagenes.length) % imagenes.length;
-        mostrarImagen();
-    });
-
-    btnNext.addEventListener('click', () => {
-        indiceActual = (indiceActual + 1) % imagenes.length;
-        mostrarImagen();
-    });
-
-    async function cargarImagenesDesdeAPI() {
-        try {
-            const res = await fetch(`https://api.mercadolibre.com/items/${PRODUCT_ID}`);
-            const data = await res.json();
-            imagenes = data.pictures.map(pic => pic.secure_url);
-            mostrarImagen();
-        } catch (error) {
-            console.error("Error al cargar las imágenes:", error);
-            imagen.alt = "Error al cargar imágenes";
-        }
-    }
-
-    // Carga inicial
-    cargarImagenesDesdeAPI();
-</script>
-
-    <!-- Carga de Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
-        /* Fuentes personalizadas (Opcional, si quieres una fuente específica) */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
@@ -88,22 +28,18 @@
         <!-- Main Content Area -->
         <main class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
 
-            <!-- Image Section -->
-
-            <!-- Image Section con Carrusel -->
-        <section class="bg-white p-4 rounded-lg shadow-md flex items-center justify-center min-h-[200px] relative">
-            <div id="carousel" class="relative w-full overflow-hidden">
-                <img id="carousel-image" src="" alt="Imagen del vehículo" class="w-full h-auto object-contain rounded">
-                <!-- Botones -->
-                <button id="prev" class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 px-3 py-1 rounded-full shadow">
-                ⬅️
+            <!-- Carrusel -->
+            <section class="bg-white p-4 rounded-lg shadow-md flex items-center justify-center min-h-[200px] relative" x-data="{ active: 0, images: ['foto1.jpg', 'foto2.jpg', 'foto3.jpg'] }">
+                <template x-for="(image, index) in images" :key="index">
+                    <img :src="image" class="w-full rounded-lg transition duration-500 absolute top-0 left-0" :class="{ 'opacity-0': active !== index, 'opacity-100': active === index }" x-show="active === index" alt="Imagen de Fiat Toro">
+                </template>
+                <button @click="active = (active - 1 + images.length) % images.length" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-75 p-2 rounded-full shadow hover:bg-opacity-100">
+                    ⬅
                 </button>
-                <button id="next" class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-700 px-3 py-1 rounded-full shadow">
-                ➡️
+                <button @click="active = (active + 1) % images.length" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-75 p-2 rounded-full shadow hover:bg-opacity-100">
+                    ➡
                 </button>
-            </div>
-        </section>
-
+            </section>
 
             <!-- Details and Price Section -->
             <section class="bg-white p-6 rounded-lg shadow-md">
@@ -135,7 +71,7 @@
 
                 <div class="marketplace-link text-center mt-6">
                     <a href="https://auto.mercadolibre.com.ar/MLA-2105468934-fiat-toro-20-350-multijet-volcano-4x4-at-22-_JM" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
-                        <svg class="w-5 h-5 inline-block mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 15.707a1 1 0 010-1.414L14.586 10l-4.293-4.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clip-rule="evenodd"></path><path fill-rule="evenodd" d="M4.293 15.707a1 1 0 010-1.414L8.586 10 4.293 5.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                        <svg class="w-5 h-5 inline-block mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 15.707a1 1 0 010-1.414L14.586 10l-4.293-4.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clip-rule="evenodd"></path><path fill-rule="evenodd" d="M4.293 15.707a1 1 0 010-1.414L8.586 10 4.293 5.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
                         Ver Publicación en MercadoLibre
                     </a>
                 </div>
@@ -146,10 +82,10 @@
         <section class="bg-white p-6 rounded-lg shadow-md mb-8">
             <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">Descripción Detallada</h2>
             <p class="text-gray-700 mb-4">
-                La **Fiat Toro 2.0 350 Multijet Volcano 4x4 AT 2022** es la combinación perfecta de robustez y sofisticación. Equipada con un motor diésel de 2.0 litros que entrega una potencia impresionante y un torque excepcional, esta pickup está diseñada para superar cualquier desafío, tanto en la ciudad como fuera de ella. Su tracción **4x4 automática** y su **transmisión de 9 marchas** garantizan un control óptimo y una experiencia de conducción suave en todo tipo de terrenos.
+                La <strong>Fiat Toro 2.0 350 Multijet Volcano 4x4 AT 2022</strong> es la combinación perfecta de robustez y sofisticación. Equipada con un motor diésel de 2.0 litros que entrega una potencia impresionante y un torque excepcional, esta pickup está diseñada para superar cualquier desafío, tanto en la ciudad como fuera de ella. Su tracción <strong>4x4 automática</strong> y su <strong>transmisión de 9 marchas</strong> garantizan un control óptimo y una experiencia de conducción suave en todo tipo de terrenos.
             </p>
             <p class="text-gray-700">
-                La versión Volcano destaca por su equipamiento premium, que incluye asientos de cuero, sistema multimedia con pantalla táctil, cámara de marcha atrás, climatizador automático bizona, y múltiples sistemas de seguridad activa y pasiva. Su diseño exterior es moderno y aerodinámico, con líneas agresivas que no pasan desapercibidas. Experimenta la comodidad y el rendimiento de una camioneta de primer nivel con solo **55.000 kilómetros**.
+                La versión Volcano destaca por su equipamiento premium, que incluye asientos de cuero, sistema multimedia con pantalla táctil, cámara de marcha atrás, climatizador automático bizona, y múltiples sistemas de seguridad activa y pasiva. Su diseño exterior es moderno y aerodinámico, con líneas agresivas que no pasan desapercibidas. Experimenta la comodidad y el rendimiento de una camioneta de primer nivel con solo <strong>55.000 kilómetros</strong>.
             </p>
         </section>
 
@@ -158,7 +94,7 @@
             <p class="text-gray-700 mb-2">¿Interesado en esta Fiat Toro?</p>
             <p class="text-gray-700 font-semibold mb-1">¡Contáctanos!</p>
             <p class="text-lg font-bold text-blue-600 mb-1">Teléfono: +54 9 11 38303505</p>
-            <p class="text-blue-600 hover:underline"><a href="mailto:info@tudominio.com">Email: martinsecchi65@gmail.com</a></p>
+            <p class="text-blue-600 hover:underline"><a href="mailto:martinsecchi65@gmail.com">Email: martinsecchi65@gmail.com</a></p>
             <p class="text-sm text-gray-500 mt-4">&copy; 2025. Todos los derechos reservados.</p>
         </footer>
 
